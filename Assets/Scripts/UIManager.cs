@@ -7,6 +7,8 @@ using UnityEngine;
 public class UIManager : MonoBehaviour
 {
     [SerializeField]
+    List<GameObject> chickenBoxes = new List<GameObject>();
+    [SerializeField]
     TMP_Text _eggsText;
     
     [SerializeField]
@@ -21,34 +23,19 @@ public class UIManager : MonoBehaviour
         SetMaximumEnergyUI(PlayerStats.MaxEnergy);
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
 
-    public void UpdateEggsText(BigInteger value)
+    public void UpdateEggsText(int value)
     {
-            if (_eggsText != null)
-        {
-            _eggsText.text = value.ToString();
-        }
+        _eggsText.text = value.ToString();
     }
     
-    public void UpdateEnergyText(BigInteger value)
+    public void UpdateEnergyText(int value)
     {
-            if (_energyText != null)
-        {
-            _energyText.text = value.ToString();
-        }
+        _energyText.text = value.ToString();
     }
 
-    public void SetMaximumEnergyUI(BigInteger value)
+    public void SetMaximumEnergyUI(int value)
     {
-        if (_energyText != null)
-        {
-            _maxEnergyText.text = PlayerStats.MaxEnergy.ToString();
-        }
-
+        _maxEnergyText.text = PlayerStats.MaxEnergy.ToString();
     }
 }
