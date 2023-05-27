@@ -11,9 +11,14 @@ public class UIManager : MonoBehaviour
     
     [SerializeField]
     TMP_Text _energyText;
+    
+    [SerializeField]
+    TMP_Text _maxEnergyText;
+
     void Start()
     {
-        
+        UpdateEnergyText(PlayerStats.CurrentEnergy);
+        SetMaximumEnergyUI(PlayerStats.MaxEnergy);
     }
 
     // Update is called once per frame
@@ -40,6 +45,10 @@ public class UIManager : MonoBehaviour
 
     public void SetMaximumEnergyUI(BigInteger value)
     {
-        if (_energyText != null) { }
+        if (_energyText != null)
+        {
+            _maxEnergyText.text = PlayerStats.MaxEnergy.ToString();
+        }
+
     }
 }
