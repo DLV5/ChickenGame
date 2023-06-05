@@ -9,8 +9,13 @@ using static ChickenManager;
 
 public class UIManager : MonoBehaviour
 {
+    public static UIManager instance;
+
+    UIManager() {
+        instance = this;
+    }
     [SerializeField]
-    List<GameObject> chickenBoxes = new List<GameObject>();
+    public List<GameObject> chickenBoxes = new List<GameObject>();
 
 
     [SerializeField]
@@ -33,15 +38,19 @@ public class UIManager : MonoBehaviour
 
     public TMP_Text TimeField { get; set; }
 
-    private void OnLevelWasLoaded(int level)
+    private void Start()
     {
-        for (int i = 0; i <= ((int)ChickenTypes.NumberOfTypes); i++)
+        //Debug.Log(totalPlayerChickens[(ChickenTypes)0].ToString());
+        for (int i = 0; i < ((int)ChickenTypes.NumberOfTypes); i++)
         {
             for (int j = 0; j < chickenBoxes.Count - totalPlayerChickens[(ChickenTypes)i]; j++)
-            {
+            {                
                 InstantiateChickenOfType((ChickenTypes)i);
             }
         }
+        UpdateEggsText(GameManager.TotalEggs);
+        UpdateEnergyText(PlayerStats.CurrentEnergy);
+        SetMaximumEnergyUI(PlayerStats.MaxEnergy);
     }
 
     private void InstantiateChickenOfType(ChickenTypes chickenType)
@@ -54,13 +63,6 @@ public class UIManager : MonoBehaviour
                 default:
                 break;
         }
-    }
-
-    private void Start()
-    {
-        UpdateEggsText(GameManager.TotalEggs);
-        UpdateEnergyText(PlayerStats.CurrentEnergy);
-        SetMaximumEnergyUI(PlayerStats.MaxEnergy);
     }
     public void UpdateEggsText(int value)
     {
