@@ -35,6 +35,9 @@ public class UIManager : MonoBehaviour
 
     [SerializeField]
     TMP_Text _timeField;
+    
+    [SerializeField]
+    TMP_Text _priceText;
 
     public TMP_Text TimeField { get; set; }
 
@@ -82,5 +85,10 @@ public class UIManager : MonoBehaviour
     public void SetTime(DateTime time)
     {
         _timeField.text = time.ToString();
+    }
+
+    internal void UpdatePriceText(int cost)
+    {
+        _priceText.text = "Price: " + cost;
     }
 }

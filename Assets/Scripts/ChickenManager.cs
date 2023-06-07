@@ -10,6 +10,8 @@ public class ChickenManager : MonoBehaviour
 
     public GameObject chickenPrefab;
 
+    private static int cost = 1;
+
     public enum ChickenTypes 
     {
         SheetChicken,
@@ -20,16 +22,8 @@ public class ChickenManager : MonoBehaviour
     private void Start()
     {               
         for (int i = 0; i <= ((int)ChickenTypes.NumberOfTypes); i++)
-        {
-            if (PlayerPrefs.GetInt(((ChickenTypes)i).ToString()) == null)
-            {
-                PlayerPrefs.SetInt(((ChickenTypes)i).ToString(), 1);
-                totalPlayerChickens[(ChickenTypes)i] = PlayerPrefs.GetInt(((ChickenTypes)i).ToString());
-                Debug.Log("Error was catched");
-            } else
-            {
-                totalPlayerChickens[(ChickenTypes)i] = PlayerPrefs.GetInt(((ChickenTypes)i).ToString());
-            }          
+        {        
+                totalPlayerChickens[(ChickenTypes)i] = PlayerPrefs.GetInt(((ChickenTypes)i).ToString());                    
         }
     }
     public void AddChicken()
@@ -50,7 +44,7 @@ public class ChickenManager : MonoBehaviour
         PlayerPrefs.Save();
     }
 
-    public void BuyChicken(int cost) {
+    public void BuyChicken() {
                 //Debug.Log(UIManager.instance.chickenBoxes[0]);
         if(cost > GameManager.TotalEggs)
         {
@@ -59,5 +53,7 @@ public class ChickenManager : MonoBehaviour
         AddChicken();
         GameManager.TotalEggs -= cost;
         UIManager.instance.UpdateEggsText(GameManager.TotalEggs);
+        cost += Convert.ToInt32(cost * 0.1) + 10;
+        UIManager.instance.UpdatePriceText(cost);
     }
 }
